@@ -1,0 +1,11 @@
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+
+    &__blogs {
+        // display: grid;
+        // grid-template-columns: repeat(2, 1fr);
+        // grid-auto-flow: row;
+        // gap: 64px;
+    }
+}

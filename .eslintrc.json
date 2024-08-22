@@ -1,0 +1,18 @@
+{
+  "extends": "next",
+  "rules": {
+    // Turn off all ESLint rules
+    "no-unused-vars": "off",
+    "no-console": "off",
+    "no-debugger": "off",
+    "no-undef": "off",
+    "eqeqeq": "off",
+    "semi": "off",
+    "quotes": "off",
+    "indent": "off",
+    "camelcase": "off",
+    "max-len": "off",
+    "react/react-in-jsx-scope": "off"
+    // Add more rules here as needed
+  }
+}
