@@ -73,8 +73,6 @@ export default function PDPPage() {
     fetchData();
   }, [slug]);
 
-  console.log("blogData", blogData);
-
   return (
     <>
       <div className={BlogPdpStyle.container}>
@@ -155,10 +153,12 @@ export default function PDPPage() {
             {/* Comment Section */}
             <CommentSection />
           </>
-        ) : (
+        ) : blogData !== null ? (
           <div className={BlogPdpStyle.loader}>
             <span></span>
           </div>
+        ) : (
+          <h2>No Data Found for this blog</h2>
         )}
       </div>
     </>
