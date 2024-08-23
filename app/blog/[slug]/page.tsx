@@ -5,46 +5,65 @@ import BlogPdpStyle from "./PdpPage.module.scss";
 import { useParams } from "next/navigation";
 import CommentSection from "@/Components/CommentSection/CommentSection";
 import Header from "@/Components/Header/Header";
+import data from "../../../Components/TestData.json";
 
-interface NewsArticle {
-  source: {
-    slug: string | null;
-    name: string;
-  };
-  author: string | null;
-  title: string | null;
-  description: string | null;
-  url: string | null;
-  urlToImage: string | null;
-  publishedAt: string | null;
-  content: string;
-}
+// interface NewsArticle {
+//   source: {
+//     slug: string | null;
+//     name: string;
+//   };
+//   author: string | null;
+//   title: string | null;
+//   description: string | null;
+//   url: string | null;
+//   urlToImage: string | null;
+//   publishedAt: string | null;
+//   content: string;
+// }
 
 export default function PDPPage() {
   const { slug } = useParams();
-  const [blogData, setBlogData] = useState<NewsArticle | null>(null);
+  const [blogData, setBlogData] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-07-22&sortBy=publishedAt&apiKey=78a3b82ea5ec484792dac6dd2276da65`;
+  //       const response = await fetch(url);
+  //       const result = await response.json();
+
+  //       if (result.articles) {
+  //         if (result.articles.find((item: any) => item.source.name === slug)) {
+  //           const blog = result.articles.find(
+  //             (item: any) => item.source.name === slug
+  //           );
+
+  //           setBlogData(blog);
+  //         } else {
+  //           console.error(
+  //             "Index out of bounds or no blog found with this slug."
+  //           );
+  //         }
+  //       } else {
+  //         console.error("Invalslug API response or slug is undefined.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching the blog data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [slug]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-07-22&sortBy=publishedAt&apiKey=78a3b82ea5ec484792dac6dd2276da65`;
-        const response = await fetch(url);
-        const result = await response.json();
+        const blog = data.articles.find((item) => item.source.name === slug);
 
-        if (result.articles) {
-          if (result.articles.find((item: any) => item.source.name === slug)) {
-            const blog = result.articles.find(
-              (item: any) => item.source.name === slug
-            );
-
-            setBlogData(blog);
-          } else {
-            console.error(
-              "Index out of bounds or no blog found with this slug."
-            );
-          }
+        if (blog) {
+          setBlogData(blog);
         } else {
-          console.error("Invalslug API response or slug is undefined.");
+          console.error("No blog found with this slug.");
         }
       } catch (error) {
         console.error("Error fetching the blog data:", error);
@@ -53,6 +72,8 @@ export default function PDPPage() {
 
     fetchData();
   }, [slug]);
+
+  console.log("blogData", blogData);
 
   return (
     <>

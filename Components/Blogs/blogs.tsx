@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Pagination from "../Pagination/Pagination";
 import Link from "next/link";
-import CommentSection from "../CommentSection/CommentSection";
+import data from "../../Components/TestData.json";
 
 export default function Blog({ searchQuery = "" }) {
   const { name } = useParams();
@@ -14,15 +14,29 @@ export default function Blog({ searchQuery = "" }) {
   const [pageNo, setPageNo] = useState(1);
   const blogsPerPage = 10;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-07-22&sortBy=publishedAt&apiKey=78a3b82ea5ec484792dac6dd2276da65`;
-        const response = await fetch(url);
-        const result = await response.json();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-07-22&sortBy=publishedAt&apiKey=78a3b82ea5ec484792dac6dd2276da65`;
+  //       const response = await fetch(url);
+  //       const result = await response.json();
 
-        // setTotalRecord(result.totalResults);
-        setTotalRecord(100);
+  //       // setTotalRecord(result.totalResults);
+  //       setTotalRecord(100);
+  //       setNewsData(result.articles);
+  //     } catch (error) {
+  //       console.error("Error fetching the news:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [name]);
+
+  useEffect(() => {
+    const fetchData = () => {
+      try {
+        const result = data;
+        setTotalRecord(result.articles.length);
         setNewsData(result.articles);
       } catch (error) {
         console.error("Error fetching the news:", error);
@@ -42,7 +56,7 @@ export default function Blog({ searchQuery = "" }) {
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
-  const onPageChange = (page) => {
+  const onPageChange = (page: any) => {
     setPageNo(page);
   };
 
